@@ -27,11 +27,21 @@
 namespace oatpp { namespace async {
 
 Error::Error(const std::string& what)
-  : m_what(what)
-{}
+  : _code(500), m_what(what)
+{
+}
+
+Error::Error(const v_int32 code, const std::string& what)
+  : _code(code), m_what(what)
+{
+}
 
 const char* Error::what() const {
   return m_what.c_str();
+}
+
+const v_int32 Error::code() const {
+  return _code;
 }
 
 }}

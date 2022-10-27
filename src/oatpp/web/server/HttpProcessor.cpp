@@ -418,7 +418,8 @@ HttpProcessor::Coroutine::Action HttpProcessor::Coroutine::handleError(Error* er
       return error;
     }
 
-    m_currentResponse = m_components->errorHandler->handleError(protocol::http::Status::CODE_500, error->what());
+    protocol::http::Status status(error->code(), "");
+    m_currentResponse = m_components->errorHandler->handleError(status, error->what());
     return yieldTo(&HttpProcessor::Coroutine::onResponseFormed);
 
   }

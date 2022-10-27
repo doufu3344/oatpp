@@ -24,6 +24,7 @@
  ***************************************************************************/
 
 #include "Coroutine.hpp"
+#include "oatpp/web/protocol/http/Http.hpp"
 
 namespace oatpp { namespace async {
 
@@ -330,6 +331,8 @@ Action CoroutineHandle::takeAction(Action&& action) {
 Action CoroutineHandle::iterate() {
   try {
     return _CP->call(_FP);
+  } catch (oatpp::web::protocol::http::HttpError& e) {
+    return new Error(e.getInfo().status.code, e.what());
   } catch (std::exception& e) {
     return new Error(e.what());
   } catch (...) {

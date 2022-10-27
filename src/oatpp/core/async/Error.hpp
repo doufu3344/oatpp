@@ -36,6 +36,7 @@ namespace oatpp { namespace async {
 class Error : public oatpp::base::Countable {
 private:
   std::string m_what;
+  v_int32 _code;
 public:
 
   /**
@@ -43,6 +44,13 @@ public:
    * @param what - error explanation.
    */
   Error(const std::string& what);
+
+  /**
+   * Constructor.
+   * @param code - error code
+   * @param what - error explanation.
+   */
+  Error(const v_int32 code,const std::string& what);
 
   /**
    * Virtual destructor.
@@ -54,6 +62,12 @@ public:
    * @return
    */
   const char* what() const;
+
+  /**
+   * Error code.
+   * @return
+   */
+  const v_int32 code() const;
 
   /**
    * Check if error belongs to specified class.
